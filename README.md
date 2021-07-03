@@ -13,3 +13,7 @@
 + Fixing bugs
 ```
 
+
+```diff
++ hikes added 🎊🎉
+```
