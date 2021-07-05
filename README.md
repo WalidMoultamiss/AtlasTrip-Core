@@ -24,5 +24,5 @@
 
 
 ```diff
-+ react setup
+- react setup
 ```
