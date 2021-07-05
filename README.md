@@ -17,3 +17,7 @@
 ```diff
 + hikes added 🎊🎉
 ```
+
+```diff
++ instruction, gadgets, relationships added 
+```
