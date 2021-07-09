@@ -24,7 +24,7 @@
 
 
 ```diff
-- react setup
++ react setup
 ```
 
 
@@ -34,5 +34,10 @@
 
 
 ```diff
-+ 3d map implemented
++ 3d map implemented 
+```
+
+
+```diff
++ Current position
 ```
