@@ -70,7 +70,7 @@ class Controller
         ];
     }
 
-    public static function uplaodImages($imagefile)
+    public  function uplaodImages($imagefile)
     {
         if ($imagefile == []) {
             return null;
@@ -78,12 +78,13 @@ class Controller
         $fileName = $imagefile['name'];
         $tempPath = $imagefile['tmp_name'];
         $fileSize = $imagefile['size'];
-        $path = dirname(__DIR__) . "/public/storage/images/";
+        $path = dirname(__DIR__, 2) . "/public/storage/images/";
         $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
         $valid_extensions = array('jpeg', 'jpg');
         $name = md5(time() . mt_rand(1, 1000000));
         if (in_array($fileExt, $valid_extensions)) {
             if ($fileSize < 5000000) {
+                // die(print_r($tempPath, $path . $name . '.' . $fileExt));
                 if (move_uploaded_file($tempPath, $path . $name . '.' . $fileExt)) {
                 } else {
                     return array("message" => "Sorry, cant move the file", "status" => false);
@@ -94,7 +95,7 @@ class Controller
         } else {
             return array("message" => "Sorry, only JPG, JPEG files are allowed", "status" => false);
         }
-        return $name;
+        return $name . '.' . $fileExt;
     }
 
 }

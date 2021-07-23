@@ -29,6 +29,7 @@ class Core
             }
         }
 
+        
         $this->Controller->data = file_get_contents("php://input") ? json_decode(file_get_contents("php://input")) : [];
         $this->params = $url ? array_values($url) : [];
 

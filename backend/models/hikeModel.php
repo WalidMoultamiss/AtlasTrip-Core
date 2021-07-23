@@ -74,7 +74,7 @@ class hikeModel
     }
 
 
-    public function add($data, $id)
+    public function add($data, $id , $nameImage)
     {
         try {
             $this->db->query("INSERT INTO
@@ -91,7 +91,7 @@ class hikeModel
 
             $this->db->bind(':name', $data->name);
             $this->db->bind(':description', $data->description);
-            $this->db->bind(':image', $data->image);
+            $this->db->bind(':image', ($nameImage));
             $this->db->bind(':water', $data->water);
             $this->db->bind(':camping', $data->camping);
             $this->db->bind(':signal_pref', $data->signal_pref);
