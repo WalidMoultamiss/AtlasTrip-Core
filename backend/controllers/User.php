@@ -44,6 +44,36 @@ class User extends Controller
         }
     }
 
+    public function getUsersCardProfile()
+    {
+        $headers = apache_request_headers();
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
+        if ($headers) {
+            try {
+                $infos = $this->verifyAuth($headers[1]);
+                if ($infos->role == "user") {
+                    $users = $this->userModel->getUsersCardProfile();
+                        print_r(json_encode(array(
+                            "users" => $users,
+                        )));
+                } else {
+                    print_r(json_encode(array(
+                        'error' => "You Don't Have permission to make this action",
+                    )));
+                    die();
+                }
+            } catch (\Throwable $th) {
+                print_r(json_encode(array(
+                    'error' => "Authentication error  ",
+                )));
+            }
+        } else {
+            print_r(json_encode(array(
+                'error' => "token is invalid",
+            )));
+        }
+    }
+
     public function users()
     {
         $headers = apache_request_headers();
@@ -55,6 +85,38 @@ class User extends Controller
                     $users = $this->userModel->getUsers();
                         print_r(json_encode(array(
                             "users" => $users,
+                        )));
+                } else {
+                    print_r(json_encode(array(
+                        'error' => "You Don't Have permission to make this action",
+                    )));
+                    die();
+                }
+            } catch (\Throwable $th) {
+                print_r(json_encode(array(
+                    'error' => "Authentication error  ",
+                )));
+            }
+        } else {
+            print_r(json_encode(array(
+                'error' => "token is invalid",
+            )));
+        }
+    }
+    public function getMyInfo()
+    {
+        $headers = apache_request_headers();
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
+        if ($headers) {
+            try {
+                $infos = $this->verifyAuth($headers[1]);
+                if ($infos->role == "user") {
+
+                    $user = $this->userModel->getMyInfo($infos->id);
+                    unset($user->password);
+                    unset($user->role);
+                        print_r(json_encode(array(
+                            "user" => $user,
                         )));
                 } else {
                     print_r(json_encode(array(
@@ -129,6 +191,46 @@ class User extends Controller
             die();
         }
 
+    }
+    public function edit()
+    {
+        $request = (object) [
+            "image" => $_FILES['image'],
+            "json" => $_POST['json'],
+        ];
+
+
+        $headers = apache_request_headers();
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
+        if ($headers) {
+            try {
+                $infos = $this->verifyAuth($headers[1]);
+                $id = $infos->id;
+                if ($infos->role == "user") {
+                    $name = $this->uplaodImages($request->image);
+                    $hike = $this->userModel->edit(json_decode($request->json), $id ,$name);
+                    if ($hike) {
+                        print_r(json_encode(array(
+                            "message" => "Profile Edited with success",
+                        )));
+                    }
+                } else {
+                    print_r(json_encode(array(
+                        'error' => "You Don't Have permission to make this action",
+                    )));
+                    die();
+                }
+            } catch (\Throwable$th) {
+                print_r(json_encode(array(
+                    'error' => "Authentication error",
+                    
+                )));
+            }
+        } else {
+            print_r(json_encode(array(
+                'error' => "token is invalid "
+            )));
+        }
     }
 
     public function delete($id){

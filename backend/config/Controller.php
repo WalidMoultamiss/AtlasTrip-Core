@@ -80,7 +80,7 @@ class Controller
         $fileSize = $imagefile['size'];
         $path = dirname(__DIR__, 2) . "/public/storage/images/";
         $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $valid_extensions = array('jpeg', 'jpg');
+        $valid_extensions = array('jpeg', 'jpg' ,'webp' ,'gif');
         $name = md5(time() . mt_rand(1, 1000000));
         if (in_array($fileExt, $valid_extensions)) {
             if ($fileSize < 5000000) {

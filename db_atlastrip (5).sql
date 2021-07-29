@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2021 at 12:37 AM
+-- Generation Time: Jul 30, 2021 at 12:33 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -46,6 +46,7 @@ CREATE TABLE `hikes` (
   `creator_id` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `image` text NOT NULL,
+  `geocode` varchar(50) NOT NULL DEFAULT '31.0600712,-7.923503',
   `water` text NOT NULL,
   `camping` text NOT NULL,
   `signal_pref` text NOT NULL,
@@ -56,34 +57,34 @@ CREATE TABLE `hikes` (
 -- Dumping data for table `hikes`
 --
 
-INSERT INTO `hikes` (`name`, `description`, `creator_id`, `id`, `image`, `water`, `camping`, `signal_pref`, `created_at`) VALUES
-('MERZOUGA', 'Merzouga est une petite ville marocaine située dans le désert du Sahara, près de la frontière algérienne.', 6, 4, '[object Object]', '5L/DAY', 'allowed', 'IAM: 2G , INWI : 2G , Orange : 2G', '2021-07-03 19:49:45'),
-('arfoud', 'Immense oasis, Erfoud est la capitale du Tafilalet, au nord de Rissani, . Erfoud est une ville qui possède encore quelques maisons traditionnelles en pisé', 6, 5, '[object Object]', '5KM without water', 'allowed', 'orange:2G , inwi:  3G', '2021-07-03 19:49:45'),
-('errachidia', 'Errachidia anciennement Ksar Es-Souk est une ville du Maroc, chef-lieu de la province d\'Errachidia, dans la région de Drâa Tafilalet.', 6, 6, '[object Object]', 'will - 3youn', 'free - 70/night', 'IAM: 3G , inwi : 3G', '2021-07-03 19:49:45'),
-('imlil', 'Ne doit pas être confondu avec Imlil dans la région Béni Mellal-Khénifra. Imlil est une commune rurale de la Province d\'Al Haouz, dans la région Marrakech-Safi, au Maroc. Elle comporte notamment un village homonyme. Le film Sept ans au Tibet, sorti en 1997, a en partie été tourné à proximité du village', 6, 7, '[object Object]', '3L / DAY - will', 'free - 50/night', 'IAM : 3G', '2021-07-03 19:49:45'),
-('Tizi', 'Tizi Ntakoucht est une petite ville et une commune rurale de la province de Chtouka-Aït Baha dans la région de Souss-Massa-Drâa au Maroc.', 6, 8, '[object Object]', 'will- 3L/DAY', 'free - 50/night', 'IAM:2G , INWI : 2G', '2021-07-03 19:49:45'),
-('Anamer', 'Anamer, Souss-Massa, Maroc', 6, 9, '[object Object]', 'will - 3youn', '50 dh for night', 'IAM: 2G , INWI : 2G', '2021-07-03 19:49:45'),
-('Tacheddirt', 'est un douar de la commune rurale marocaine d\'Asni, dans la province d\'Al Haouz et la région de Marrakech-Tensift-Al Haouz.', 6, 10, '[object Object]', 'will - 3youn', 'allowed:free , 100/night', 'IAM:3G ,', '2021-07-03 19:49:45'),
-('L’île du Dragon', 'L’île du Dragon est un lieu sacré dans le secteur. On est frappé par sa beauté dès le premier regard. Composée de sable et de rochers sculptés par le vent, elle ressemble à un dragon vue de la côte. Le dragon se trouve en face de l’hôtel Dakhla Attitude. Il veille sur tout ce qui se passe la journée et s’invite dans vos rêves pendant la nuit.  L’hôtel propose des excursions en bateau pour se rendre sur l’île mais si vous avez le courage, vous pouvez y aller à la nage ou à pieds par marée basse. N’hésitez pas à grimper sur le spot pour admirer la vue panoramique d’en haut.  Pensez à prendre des chaussures pour aller sur l’île, car le sable est plein de coquillages. Et choisissez un coquillage sur l’île, que vous emporterez avec vous. Ce sera le signe que vous reviendrez bientôt!', 6, 11, '[object Object]', '3D/DAY', 'YES', 'IAM 3G', '2021-07-03 19:49:45'),
-('sabkhat imlili', 'ebkhet Imlily est une zone humide située dans le Sud marocain à environ 200 km de la frontière avec la Mauritanie. Elle a été prospectée pour la première fois en janvier 2009 dans le but d’y dénombrer, éventuellement, les oiseaux d’eau. La Sebkha était pratiquement à sec à l’exception de poches d’eau permanentes dans sa partie médiane. Les bordures de la partie nord prospectée de cette zone humide une ceinture continue d’une végétation aquatique mixte à base d’émergents hauts. Les poches d’eau hébergent un peuplement ichtyologique constitué d’une espèce de Cichlidés, le Tilapia de Guinée Tilapia guineensis (Bleeker, 1862), inconnue jusqu’ici de toute l’Afrique du Nord et du Sahara.', 6, 12, '[object Object]', '3L/DAY', '', 'IAM 3G', '2021-07-03 19:49:45'),
-('la dune blanche', '13 km de downwind jusqu’à la Dune Blanche, le paradis du kite ! Bateau de sécurité, lycra Dakhla Attitude et guide inclus. Retour à Dakhla Attitude en 4×4 à travers le désert, avec escale à la source thermale d’Asnaa. Une expérience unique et inoubliable, à ne pas manquer. VENEZ AVEC NOUS ! Réservé aux riders intermédiaires et confirmés. Pour obtenir plus d’informations, adressez-vous à l’accueil du centre sportif.', 6, 13, '[object Object]', '3L/DAY', '', 'IAM 3G', '2021-07-03 19:49:45'),
-('chefchaouen', 'Chefchaouen, ou Chaouen, est une ville située dans les montagnes du Rif', 6, 14, '[object Object]', 'existant', 'hotels:100/150,camping:free', 'IAM:4G,Orange:4G,Inwi:4G', '2021-07-03 19:49:45'),
-('martil', 'est une cité balnéaire', 6, 15, '[object Object]', 'existant', 'hotels:100Dh,camping/10 for night', 'IAM:4G,Orange:4G,Inwi:4G', '2021-07-03 19:49:45'),
-('fnideq', 'Castillejos', 6, 16, '[object Object]', 'existant', 'hotels:100Dh/camping:free', 'IAM:4G,Orange:4G,Inwi:4G', '2021-07-03 19:49:45'),
-('plage belyounech', 'Belyounech : Un petit paradis méconnu', 6, 17, '[object Object]', 'existant', '3 étoiles (prix moyen : 410 MAD), 5 étoiles (prix moyen : 2.099 MAD).', 'IAM:4G,Orange:3G,Inwi:3G', '2021-07-03 19:49:45'),
-('akchour', 'Akchour est un petit village du Maroc, à 30 km de Chefchaouen sur la route de Oued Lao', 6, 18, '[object Object]', 'will-3youn', 'allowed:free,150/night', 'IAM:3G,Orange:2G', '2021-07-03 19:49:45'),
-('Boulmane dades', 'Située au bord d\'un plateau désertique, au débouché de la haute vallée du Dadès à plus de 1500 mètres d\'altitude, Boumalne trouve son origine dans un ancien passage de transhumance2, contrôlé par les Aït Atta du djebel Saghro et aussi utilisé par les tribus voisines des Mgouna, Aït Sedrate, Aït Hdiddou et Aït Merghad entre les pâturages d\'été du Haut Atlas et ceux d\'hiver du Saghro.', 6, 19, '[object Object]', '3l every 5h', 'allowed and free', 'IAM 3G', '2021-07-03 19:49:45'),
-('ouarzazat', 'The kasbah-town of Aït Benhaddou is nearby. Many excursions through the valley of the Draa River into the Sahara start from the city. These include trips to Zagora, an oasis town surrounded by palm tree plantations and a departure point for camel trains to Timbuktu, a journey that would take about 52 days. These days the border to Algeria is closed, stopping the Timbuktu route.', 6, 20, '[object Object]', '2l', '', 'IAM: 4G, inwi: 3G, orange: 3G', '2021-07-03 19:49:45'),
-('Imlil', 'imlil is so good for camping, you can go to Toubkal summit from imlil', 6, 21, '[object Object]', '3l of water(average 75 kg man)', 'allowed: 10dh/ night', 'IAM: 2G', '2021-07-03 19:49:45'),
-('Sitti fadma', 'sitti fadma is so beautifull yes you can camp or have a night by hotels', 6, 22, '[object Object]', 'river sitti fadma', '10 dh per night', 'IAM 3G, inwi: 2G, Orange: NULL', '2021-07-03 19:49:45'),
-('Casa to Marakech', 'casa to marakech by train and try to have anight in the beautifil marakech', 6, 23, '[object Object]', 'no need', 'no', 'All 4G', '2021-07-03 19:49:45'),
-('boulmane dades', 'The Dades Valley runs between the Jebel Sarhro and High Atlas mountain ranges and offers some of Morocco\'s most spectacular scenery. Its cliffs transition from ocher to rose to deep red with the changing light and in some places tower more than 1500 feet above the verdant oases of the valley floor. The best way to appreciate the valley and its Berber villages is on foot, especially when you reach the magnificent Todra Gorge. Traditional forts, or kasbahs, can be found at regular intervals and many now double as luxury hotels.', 6, 24, '[object Object]', '3km without water', 'allowed: 5dh/night', 'IAM: 3G', '2021-07-03 19:49:45'),
-('lac wiwan', 'lac wiwan est tres manifique', 6, 25, '[object Object]', 'will', 'Allowed: free, 150/night', 'IAM: 2G,', '2021-07-03 19:49:45'),
-('Source oum rabi3', 'oum rabi3 est tres manifique', 6, 26, '[object Object]', '3youn', 'allowd;free, 30dh/night, 150dh/night', 'IAM: 2G', '2021-07-03 19:49:45'),
-('lac aghlmam azakaza', 'lac aghlmam azakaza est tres manifique', 6, 27, '[object Object]', 'will', 'allowed and free', 'IAM: 4G, Orange: 2G, Inwi: 3G', '2021-07-03 19:49:45'),
-('lac tiguelmamine', 'lac tiguelmamine est un lac tres manifique', 6, 28, '[object Object]', 'lac and well', 'Allowed and free', 'IAM: 4G, Orange: 2G, Inwi: 3G', '2021-07-03 19:49:45'),
-('Casa to khenifra', 'khenifra situé dans le maroc', 6, 29, '[object Object]', '', '', '', '2021-07-03 19:49:45'),
-('bradar', 'a7ssan bradar', 5, 30, 'e9fdce6bee6df1307103abed787d4bfc.jpg', 'lma', '3iiich', 'IAM miyyyta ', '2021-07-23 21:08:30');
+INSERT INTO `hikes` (`name`, `description`, `creator_id`, `id`, `image`, `geocode`, `water`, `camping`, `signal_pref`, `created_at`) VALUES
+('MERZOUGA', 'Merzouga est une petite ville marocaine située dans le désert du Sahara, près de la frontière algérienne.', 6, 4, '3fd3a326feaac745d7730d31a7749d53.jpg', '31.081207,-9.0493578', '5L/DAY', 'allowed', 'IAM: 2G , INWI : 2G , Orange : 2G', '2021-07-25 03:30:07'),
+('arfoud', 'Immense oasis, Erfoud est la capitale du Tafilalet, au nord de Rissani, . Erfoud est une ville qui possède encore quelques maisons traditionnelles en pisé', 6, 5, '97a608f287131f67d06d83ff60effb59.jpg', '31.4550154,-4.2858272', '5KM without water', 'allowed', 'orange:2G , inwi:  3G', '2021-07-25 03:30:10'),
+('errachidia', 'Errachidia anciennement Ksar Es-Souk est une ville du Maroc, chef-lieu de la province d\'Errachidia, dans la région de Drâa Tafilalet.', 6, 6, '7329fb01ed91af6324ea97ba513cffc1.jpg', '31.0600712,-7.923503', 'will - 3youn', 'free - 70/night', 'IAM: 3G , inwi : 3G', '2021-07-25 03:30:13'),
+('imlil', 'Ne doit pas être confondu avec Imlil dans la région Béni Mellal-Khénifra. Imlil est une commune rurale de la Province d\'Al Haouz, dans la région Marrakech-Safi, au Maroc. Elle comporte notamment un village homonyme. Le film Sept ans au Tibet, sorti en 1997, a en partie été tourné à proximité du village', 6, 7, 'd71a8639e2522b6d1c18c55f81275ac9.jpg', '31.1366481,-7.9230738', '3L / DAY - will', 'free - 50/night', 'IAM : 3G', '2021-07-25 03:30:02'),
+('Tizi', 'Tizi Ntakoucht est une petite ville et une commune rurale de la province de Chtouka-Aït Baha dans la région de Souss-Massa-Drâa au Maroc.', 6, 8, '8dabe66793c9c7bd3d12e599408facf1.jpg', '31.1385512,-5.2041759', 'will- 3L/DAY', 'free - 50/night', 'IAM:2G , INWI : 2G', '2021-07-25 03:29:58'),
+('Anamer', 'Anamer, Souss-Massa, Maroc', 6, 9, '8a5ce01a7854a3bd11df024e2caed428.jpg', '29.2798501,-8.9937642', 'will - 3youn', '50 dh for night', 'IAM: 2G , INWI : 2G', '2021-07-25 03:29:55'),
+('Tacheddirt', 'est un douar de la commune rurale marocaine d\'Asni, dans la province d\'Al Haouz et la région de Marrakech-Tensift-Al Haouz.', 14, 10, 'd8deaa0f9687cf75afc0f141b25d3c67.jpg', '31.1561421,-7.8471459', 'will - 3youn', 'allowed:free , 100/night', 'IAM:3G ,', '2021-07-25 03:45:09'),
+('L’île du Dragon', 'L’île du Dragon est un lieu sacré dans le secteur. On est frappé par sa beauté dès le premier regard. Composée de sable et de rochers sculptés par le vent, elle ressemble à un dragon vue de la côte. Le dragon se trouve en face de l’hôtel Dakhla Attitude. Il veille sur tout ce qui se passe la journée et s’invite dans vos rêves pendant la nuit.  L’hôtel propose des excursions en bateau pour se rendre sur l’île mais si vous avez le courage, vous pouvez y aller à la nage ou à pieds par marée basse. N’hésitez pas à grimper sur le spot pour admirer la vue panoramique d’en haut.  Pensez à prendre des chaussures pour aller sur l’île, car le sable est plein de coquillages. Et choisissez un coquillage sur l’île, que vous emporterez avec vous. Ce sera le signe que vous reviendrez bientôt!', 14, 11, '3d036c3f8c8f04a79fa0722d19659b84.jpg', '23.8702731,-15.7846231', '3D/DAY', 'YES', 'IAM 3G', '2021-07-25 03:39:30'),
+('sabkhat imlili', 'ebkhet Imlily est une zone humide située dans le Sud marocain à environ 200 km de la frontière avec la Mauritanie. Elle a été prospectée pour la première fois en janvier 2009 dans le but d’y dénombrer, éventuellement, les oiseaux d’eau. La Sebkha était pratiquement à sec à l’exception de poches d’eau permanentes dans sa partie médiane. Les bordures de la partie nord prospectée de cette zone humide une ceinture continue d’une végétation aquatique mixte à base d’émergents hauts. Les poches d’eau hébergent un peuplement ichtyologique constitué d’une espèce de Cichlidés, le Tilapia de Guinée Tilapia guineensis (Bleeker, 1862), inconnue jusqu’ici de toute l’Afrique du Nord et du Sahara.', 6, 12, '0521e1ad391decd732eb7a0e1c89b891.jpg', '31.0600712,-7.923503', '3L/DAY', '', 'IAM 3G', '2021-07-24 13:46:10'),
+('la dune blanche', '13 km de downwind jusqu’à la Dune Blanche, le paradis du kite ! Bateau de sécurité, lycra Dakhla Attitude et guide inclus. Retour à Dakhla Attitude en 4×4 à travers le désert, avec escale à la source thermale d’Asnaa. Une expérience unique et inoubliable, à ne pas manquer. VENEZ AVEC NOUS ! Réservé aux riders intermédiaires et confirmés. Pour obtenir plus d’informations, adressez-vous à l’accueil du centre sportif.', 5, 13, 'cebf4f91713d7d1e3b126f2898d82dbb.jpg', '23.8240936,-15.7162916', '3L/DAY', '', 'IAM 3G', '2021-07-27 12:30:07'),
+('chefchaouen', 'Chefchaouen, ou Chaouen, est une ville située dans les montagnes du Rif', 6, 14, 'ef7669d018bbe54f6ff6755958210cfe.jpg', '31.0600712,-7.923503', 'existant', 'hotels:100/150,camping:free', 'IAM:4G,Orange:4G,Inwi:4G', '2021-07-24 13:46:10'),
+('martil', 'est une cité balnéaire', 6, 15, '8b24715e078ad14c45caceb1e7797bbf.webp', '31.0600712,-7.923503', 'existant', 'hotels:100Dh,camping/10 for night', 'IAM:4G,Orange:4G,Inwi:4G', '2021-07-25 03:30:22'),
+('fnideq', 'Castillejos', 6, 16, 'd6c2db394ac9090a7dd42e4881d346d1.jpg', '31.0600712,-7.923503', 'existant', 'hotels:100Dh/camping:free', 'IAM:4G,Orange:4G,Inwi:4G', '2021-07-25 03:30:25'),
+('plage belyounech', 'Belyounech : Un petit paradis méconnu', 6, 17, '657b3a0b25529ed04584b850263d48af.jpg', '31.0600712,-7.923503', 'existant', '3 étoiles (prix moyen : 410 MAD), 5 étoiles (prix moyen : 2.099 MAD).', 'IAM:4G,Orange:3G,Inwi:3G', '2021-07-25 03:30:31'),
+('akchour', 'Akchour est un petit village du Maroc, à 30 km de Chefchaouen sur la route de Oued Lao', 6, 18, '7da2b2c8de0e3b6da78224cb88bcf1ba.jpg', '31.0600712,-7.923503', 'will-3youn', 'allowed:free,150/night', 'IAM:3G,Orange:2G', '2021-07-25 03:30:34'),
+('Boulmane dades', 'Située au bord d\'un plateau désertique, au débouché de la haute vallée du Dadès à plus de 1500 mètres d\'altitude, Boumalne trouve son origine dans un ancien passage de transhumance2, contrôlé par les Aït Atta du djebel Saghro et aussi utilisé par les tribus voisines des Mgouna, Aït Sedrate, Aït Hdiddou et Aït Merghad entre les pâturages d\'été du Haut Atlas et ceux d\'hiver du Saghro.', 6, 19, '510d72aed3a323606cf6e3b8617196d4.jpg', '31.0600712,-7.923503', '3l every 5h', 'allowed and free', 'IAM 3G', '2021-07-24 16:26:50'),
+('ouarzazat', 'The kasbah-town of Aït Benhaddou is nearby. Many excursions through the valley of the Draa River into the Sahara start from the city. These include trips to Zagora, an oasis town surrounded by palm tree plantations and a departure point for camel trains to Timbuktu, a journey that would take about 52 days. These days the border to Algeria is closed, stopping the Timbuktu route.', 6, 20, '6356eb333e9c10e6280cda8fc36372c0.jpg', '31.0600712,-7.923503', '2l/hour', 'allowed', 'IAM: 4G, inwi: 3G, orange: 3G', '2021-07-24 16:26:55'),
+('Imlil', 'imlil is so good for camping, you can go to Toubkal summit from imlil', 6, 21, '6405f77dbe8061b1d865195b34f79753.jpg', '31.0600712,-7.923503', '3l of water(average 75 kg man)', 'allowed: 10dh/ night', 'IAM: 2G', '2021-07-24 16:26:58'),
+('Sitti fadma', 'sitti fadma is so beautifull yes you can camp or have a night by hotels', 6, 22, '0afda00125575594519e903f47e8c978.jpg', '31.0600712,-7.923503', 'river sitti fadma', '10 dh per night', 'IAM 3G, inwi: 2G, Orange: NULL', '2021-07-24 16:27:01'),
+('Casa to Marakech', 'casa to marakech by train and try to have anight in the beautifil marakech', 6, 23, '2544c5549d2b4a78c97bbe2838a1d07f.jpg', '31.0600712,-7.923503', 'no need', 'no', 'All 4G', '2021-07-24 16:27:04'),
+('boulmane dades', 'The Dades Valley runs between the Jebel Sarhro and High Atlas mountain ranges and offers some of Morocco\'s most spectacular scenery. Its cliffs transition from ocher to rose to deep red with the changing light and in some places tower more than 1500 feet above the verdant oases of the valley floor. The best way to appreciate the valley and its Berber villages is on foot, especially when you reach the magnificent Todra Gorge. Traditional forts, or kasbahs, can be found at regular intervals and many now double as luxury hotels.', 6, 24, '21ae809dfb27e84a7bcf1aae70466c97.jpg', '31.0600712,-7.923503', '3km without water', 'allowed: 5dh/night', 'IAM: 3G', '2021-07-24 16:27:08'),
+('lac wiwan', 'lac wiwan est tres manifique', 6, 25, '0fdc373036136cd0dab31fdba6616433.jpg', '31.0600712,-7.923503', 'will', 'Allowed: free, 150/night', 'IAM: 2G,', '2021-07-25 03:30:42'),
+('Source oum rabi3', 'oum rabi3 est tres manifique', 6, 26, '11222d02a442afaf2a5f1c6bfeccaf5e.jpg', '31.0600712,-7.923503', '3youn', 'allowd;free, 30dh/night, 150dh/night', 'IAM: 2G', '2021-07-25 03:30:44'),
+('lac aguelmam aziza', 'lac aghlmam azakaza est tres manifique', 6, 27, '6cd7139c3502c4b7ae50515b9a70cb1c.jpg', '31.0600712,-7.923503', 'will', 'allowed and free', 'IAM: 4G, Orange: 2G, Inwi: 3G', '2021-07-25 03:30:46'),
+('lac tiguelmamine', 'lac tiguelmamine est un lac tres manifique', 5, 28, 'b04ecaedc79ca30da6a826af0022040c.jpg', '32.9055784,-5.342427', 'lac and well', 'Allowed and free', 'IAM: 4G, Orange: 2G, Inwi: 3G', '2021-07-25 16:07:23'),
+('Aguelmam azegza', 'khenifra situé dans le maroc', 5, 29, 'e92f206e128dde91fc215a74815580c1.jpg', '32.9733484,-5.4430237', 'will', 'allowed and free', 'no signal', '2021-07-25 16:10:44'),
+('Cathedrale imsfrane', 'Ce magnifique rocher « la cathédrale d’Imsfrane » culmine a 1872m. Cette contrée de l’Atlas est tout à fait superbe avec ses pins d’Alep et ses vallées sompteuses ', 6, 31, 'f53b62b44d1941a5832df31064b4d2ff.jpg', '31.0600712,-7.923503', 'will', 'allowed and free', 'IAM is better', '2021-07-25 03:30:56');
 
 -- --------------------------------------------------------
 
@@ -2203,6 +2204,64 @@ INSERT INTO `instruction` (`id`, `name`, `image`, `video_link`, `go_to`, `rating
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `intrest`
+--
+
+CREATE TABLE `intrest` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL DEFAULT 'interest',
+  `image` varchar(255) NOT NULL DEFAULT 'atlastrip.jpg'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `intrest`
+--
+
+INSERT INTO `intrest` (`id`, `name`, `image`) VALUES
+(1, 'sahara', 'sahara.jpg'),
+(2, 'ruins', 'ruins.jpg'),
+(3, 'mountain', 'mountain.png'),
+(4, 'forest', 'forest.jpg'),
+(5, 'rivers', 'rivers.jpg'),
+(6, 'beach', 'beach.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `intrest_user`
+--
+
+CREATE TABLE `intrest_user` (
+  `id` int(11) NOT NULL,
+  `intrest_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `intrest_user`
+--
+
+INSERT INTO `intrest_user` (`id`, `intrest_id`, `user_id`) VALUES
+(108, 6, 15),
+(149, 1, 5),
+(150, 2, 5),
+(151, 3, 5),
+(152, 4, 5),
+(153, 5, 5),
+(154, 6, 5),
+(157, 1, 14),
+(158, 2, 14),
+(159, 3, 14),
+(160, 4, 14),
+(161, 5, 14),
+(162, 1, 16),
+(163, 2, 16),
+(164, 3, 16),
+(165, 6, 16);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `notification`
 --
 
@@ -2331,6 +2390,7 @@ CREATE TABLE `user` (
   `last_name` varchar(255) NOT NULL,
   `date_birth` date NOT NULL,
   `email` varchar(255) NOT NULL,
+  `image` varchar(200) DEFAULT 'user.jpg',
   `password` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `quote` text NOT NULL,
@@ -2344,14 +2404,17 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `password`, `phone`, `quote`, `t_num_1`, `t_num_2`, `t_num_3`, `role`) VALUES
-(4, 'walid', 'moultamiss', '0000-00-00', 'random1@random.com', '$2y$10$2WJD6vU92J3ESv01G/1T5.lBB/X9IEMqw6kB6sPcwtrtFiV7Ee/HK', '067787899', 'random quote', '067787899', '067787899', '067787899', 'user'),
-(5, 'walid', 'moultamiss', '1996-12-12', 'walidmoultamis@gmail.com', '$2y$12$nin4m949CiCMKY5iHIQWZu2BWdnODY3GnA.PYvZLvURiD50avxLAe', '09889989', 'random', '09889989', '09889989', '09889989', 'user'),
-(6, 'walid', 'moultamiss', '1996-12-12', 'walidmoultamiss@gmail.com', '$2y$12$h0V/X5skTSoMyTSp9D5q9ejYF8dU.1aqNSGerYKzCxiFnCdWaJRCa', '09889989', 'random', '09889989', '09889989', '09889989', 'user'),
-(8, 'walid', 'moultamiss', '0000-00-00', 'walidmoultamisss@gmail.com', '$2y$12$OqwQQALAqwNFgcHXHQeFkOaWgcy0vecIheR.J/Ql7Zjc.mdvqwt2S', '0666657350', '', '0622657350', '', '', 'user'),
-(9, 'walid', 'wa', '0000-00-00', 'walidmoultami@gmail.com', '$2y$12$Ump4xha1jpT2A5jR3MGq0eZbRiqDH3t0VpDH/ZzlVrcqja8T7J/tq', '09090', '', '0909090909', '', '', 'user'),
-(10, 'qsd', 'qsdds', '0000-00-00', 'walidmoulta@gmail.com', '$2y$12$5MAJ4MsvEhDHlfIbiWxsoeu7WGufEDyqD4imKaro9dWcHALX6s9DC', '9879', '', '98798798', '', '', 'user'),
-(12, 'sdffsd', 'ljlkjlkjl', '0000-00-00', 'walidmoult@gmail.com', '$2y$12$IdiGW3DdwzqI/rGknZJyIu10ymHJd79diA5Ax/aolifRnQ4I0mUWW', '64654', '', '6546465', '', '', 'user');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `date_birth`, `email`, `image`, `password`, `phone`, `quote`, `t_num_1`, `t_num_2`, `t_num_3`, `role`) VALUES
+(4, 'walid', 'moultamiss', '0000-00-00', 'random1@random.com', 'user.jpg', '$2y$10$2WJD6vU92J3ESv01G/1T5.lBB/X9IEMqw6kB6sPcwtrtFiV7Ee/HK', '067787899', 'To walk in nature is to witness a thouseand miracles', '067787899', '067787899', '067787899', 'user'),
+(5, 'walid', 'moultamiss', '1996-12-12', 'walidmoultamis@gmail.com', '3d88f41832348639887ba2dcc92c3284.jpg', '$2y$12$nin4m949CiCMKY5iHIQWZu2BWdnODY3GnA.PYvZLvURiD50avxLAe', '09889989', 'To walk in nature is to witness a thouseand miracles', '09889989', '09889989', '09889989', 'user'),
+(6, 'walid', 'moultamiss', '1996-12-12', 'walidmoultamiss@gmail.com', 'user.jpg', '$2y$12$h0V/X5skTSoMyTSp9D5q9ejYF8dU.1aqNSGerYKzCxiFnCdWaJRCa', '09889989', 'To walk in nature is to witness a thouseand miracles', '09889989', '09889989', '09889989', 'user'),
+(8, 'walid', 'moultamiss', '0000-00-00', 'walidmoultamisss@gmail.com', 'user.jpg', '$2y$12$OqwQQALAqwNFgcHXHQeFkOaWgcy0vecIheR.J/Ql7Zjc.mdvqwt2S', '0666657350', '', '0622657350', '', '', 'user'),
+(9, 'walid', 'wa', '0000-00-00', 'walidmoultami@gmail.com', 'user.jpg', '$2y$12$Ump4xha1jpT2A5jR3MGq0eZbRiqDH3t0VpDH/ZzlVrcqja8T7J/tq', '09090', '', '0909090909', '', '', 'user'),
+(10, 'qsd', 'qsdds', '0000-00-00', 'walidmoulta@gmail.com', 'user.jpg', '$2y$12$5MAJ4MsvEhDHlfIbiWxsoeu7WGufEDyqD4imKaro9dWcHALX6s9DC', '9879', '', '98798798', '', '', 'user'),
+(12, 'sdffsd', 'ljlkjlkjl', '0000-00-00', 'walidmoult@gmail.com', 'user.jpg', '$2y$12$IdiGW3DdwzqI/rGknZJyIu10ymHJd79diA5Ax/aolifRnQ4I0mUWW', '64654', '', '6546465', '', '', 'user'),
+(14, 'karim', 'baggari', '0000-00-00', 'karim@gmail.com', 'fb9f97f93e4081d9ded0ebb7803d9136.gif', '$2y$12$mu8iFGtrJKJOt5Pl/Rhg.O4HSY/dff7KIGw2oPueKwAvkoDnCXDLq', '090909090', 'Stop me if you can', '0909090', '09090909', '09090909', 'user'),
+(15, 'choaib', 'moncef', '0000-00-00', 'choaib@gmail.com', 'f9ec437e8f631d7300954a12566fc738.jpg', '$2y$12$Gujg8Vr5rgr4HoDrS7fO0elg7RvvIgFmiQ5Df.3xuhdXPm8eD4avy', '0650958324', 'IT\'S HARD', '0643554687', '09', '09', 'user'),
+(16, 'zineb', 'belbhiriya', '0000-00-00', 'zineb@gmail.com', '2e4d683c6bf038d55f1c217d194298c8.jpg', '$2y$12$KrXcPjn9ehl7FIYh1YAebeWNZ90eltNPfx/da6M2fZ9vHSDt5TYAC', '06667766', '3ich o mathdich', '8889977766', '0998878778', '00989776786', 'user');
 
 --
 -- Indexes for dumped tables
@@ -2388,6 +2451,18 @@ ALTER TABLE `instruction`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `intrest`
+--
+ALTER TABLE `intrest`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `intrest_user`
+--
+ALTER TABLE `intrest_user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `plan`
 --
 ALTER TABLE `plan`
@@ -2420,7 +2495,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `hikes`
 --
 ALTER TABLE `hikes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `hikes_plans`
@@ -2447,6 +2522,18 @@ ALTER TABLE `instruction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `intrest`
+--
+ALTER TABLE `intrest`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `intrest_user`
+--
+ALTER TABLE `intrest_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+
+--
 -- AUTO_INCREMENT for table `plan`
 --
 ALTER TABLE `plan`
@@ -2468,7 +2555,7 @@ ALTER TABLE `pro_hike`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

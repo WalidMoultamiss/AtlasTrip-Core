@@ -1,6 +1,6 @@
 <?php
 
-class hikeModel
+class intrestModel
 {
     private $db;
     public function __construct()
@@ -10,70 +10,65 @@ class hikeModel
 
     public function getAll()
     {
-        $this->db->query("SELECT * FROM  hikes ");
-        return $this->db->all();
-    }
-    public function getAllImages()
-    {
-        $this->db->query("SELECT hikes.image, hikes.id FROM  hikes ");
+        $this->db->query("SELECT * FROM  intrest ");
         return $this->db->all();
     }
 
     public function getHikePlan($id)
     {
-        $this->db->query("SELECT h.name ,h.image image FROM hikes_plans hp,hikes h, plan p WHERE h.id=hp.hike_id and p.id=hp.plan_id and p.id='$id'");
+        $this->db->query("SELECT h.name ,h.image image FROM intrest_plans hp,intrest h, plan p WHERE h.id=hp.hike_id and p.id=hp.plan_id and p.id='$id'");
         return $this->db->all();
     }
     public function getAllNames()
     {
-        $this->db->query("SELECT name , id FROM  hikes ");
+        $this->db->query("SELECT name , id FROM  intrest ");
         return $this->db->all();
     }
     
     public function getId($id)
     {
-        $this->db->query("SELECT * FROM hikes WHERE id = :id");
+        $this->db->query("SELECT * FROM intrest WHERE id = :id");
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
     public function getHikeWithCreator($id)
     {
-        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM hikes_plans hp,hikes h, plan p, user u WHERE h.id=hp.hike_id and p.id=hp.plan_id and p.id='$id' and h.creator_id = u.id");
+        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM intrest_plans hp,intrest h, plan p, user u WHERE h.id=hp.hike_id and p.id=hp.plan_id and p.id='$id' and h.creator_id = u.id");
         return $this->db->all();
     }
     public function addImage($id)
     {
-        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM hikes_plans hp,hikes h, plan p, user u WHERE h.id=hp.hike_id and p.id=hp.plan_id and p.id='$id' and h.creator_id = u.id");
+        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM intrest_plans hp,intrest h, plan p, user u WHERE h.id=hp.hike_id and p.id=hp.plan_id and p.id='$id' and h.creator_id = u.id");
         return $this->db->single();
     }
     public function getAllHikeWithCreator()
     {
-        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM hikes h, user u WHERE h.creator_id = u.id");
+        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM intrest h, user u WHERE h.creator_id = u.id");
         return $this->db->all();
     }
     public function getHikeInfoWithCreator($id)
     {
-        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM hikes h, user u WHERE h.creator_id = u.id and h.id = '$id'");
+        $this->db->query("SELECT u.first_name,u.last_name,h.* FROM intrest h, user u WHERE h.creator_id = u.id and h.id = '$id'");
         return $this->db->single();
     }
     public function getPlanFromHike($id)
     {
-        $this->db->query("SELECT p.id plan_id, p.price price, p.name name, h.name hike_name FROM hikes h, plan p ,hikes_plans hp WHERE h.id = hp.hike_id and p.id = hp.plan_id and h.id = '$id'");
+        $this->db->query("SELECT p.id plan_id, p.price price, p.name name, h.name hike_name FROM intrest h, plan p ,intrest_plans hp WHERE h.id = hp.hike_id and p.id = hp.plan_id and h.id = '$id'");
         return $this->db->all();
     }
     
     public function hikeInfoByRef($hike)
     {
-        $this->db->query("SELECT * FROM hikes WHERE refenrence_id = :hike");
+        $this->db->query("SELECT * FROM intrest WHERE refenrence_id = :hike");
         $this->db->bind(':hike', $hike);
         return $this->db->single();
     }
 
     
     
-    public function gethikesByDate($date)
+    public function getintrestByDate($date)
     {
-        $this->db->query("SELECT * FROM hikes WHERE date = :date");
+        $this->db->query("SELECT * FROM intrest WHERE date = :date");
         $this->db->bind(':date', $date);
         return $this->db->single();
     }
@@ -83,7 +78,7 @@ class hikeModel
     {
         try {
             $this->db->query("INSERT INTO
-                hikes
+                intrest
             SET
                 name = :name,
                 description = :description,
@@ -114,7 +109,7 @@ class hikeModel
 
     public function delete($data)
     {
-        $this->db->query('DELETE FROM hikes WHERE id=:id');
+        $this->db->query('DELETE FROM intrest WHERE id=:id');
         $this->db->bind(':id', $data->id);
         $this->db->execute();
     }
@@ -123,7 +118,7 @@ class hikeModel
     {
         try {
             $this->db->query("UPDATE 
-                hikes
+                intrest
             SET
                 name = :name,
                 description = :description,

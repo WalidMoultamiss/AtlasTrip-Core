@@ -2,7 +2,7 @@
 
 require_once '../vendor/autoload.php';
 
-class hike extends Controller
+class intrest extends Controller
 {
 
     public $data = [];
@@ -10,66 +10,63 @@ class hike extends Controller
 
     public function __construct()
     {
-        $this->hikeModel = $this->model('hikeModel');
+        $this->intrestModel = $this->model('intrestModel');
     }
 
-    public function hikes()
+    public function intrests()
     {
-        $hikes = $this->hikeModel->getAll();
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getAll();
+        for($i=0; $i<count($intrests);$i++){
+            $intrests[$i]->check=true;
+        };
+        print_r(json_encode($intrests));
     }
-
-    public function hikesImage()
+    public function intrestsName()
     {
-        $hikes = $this->hikeModel->getAllImages();
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getAllNames();
+        print_r(json_encode($intrests));
     }
-    public function hikesName()
+    public function intrestsPlan($id)
     {
-        $hikes = $this->hikeModel->getAllNames();
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getintrestPlan($id);
+        print_r(json_encode($intrests));
     }
-    public function hikesPlan($id)
+    public function getintrestWithCreator($id)
     {
-        $hikes = $this->hikeModel->getHikePlan($id);
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getintrestWithCreator($id);
+        print_r(json_encode($intrests));
     }
-    public function getHikeWithCreator($id)
+    public function getAllintrestWithCreator()
     {
-        $hikes = $this->hikeModel->getHikeWithCreator($id);
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getAllintrestWithCreator();
+        print_r(json_encode($intrests));
     }
-    public function getAllHikeWithCreator()
+    public function getintrestInfoWithCreator($id)
     {
-        $hikes = $this->hikeModel->getAllHikeWithCreator();
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getintrestInfoWithCreator($id);
+        print_r(json_encode($intrests));
     }
-    public function getHikeInfoWithCreator($id)
+    public function getPlanFromintrest($id)
     {
-        $hikes = $this->hikeModel->getHikeInfoWithCreator($id);
-        print_r(json_encode($hikes));
-    }
-    public function getPlanFromHike($id)
-    {
-        $hikes = $this->hikeModel->getPlanFromHike($id);
-        print_r(json_encode($hikes));
+        $intrests = $this->intrestModel->getPlanFromintrest($id);
+        print_r(json_encode($intrests));
     }
 
     public function info($id)
     {
-        $RDV = $this->hikeModel->RDVInfo($id);
+        $RDV = $this->intrestModel->RDVInfo($id);
         print_r(json_encode($RDV));
     }
 
     public function infoById($id)
     {
-        $RDV = $this->hikeModel->getId($id);
+        $RDV = $this->intrestModel->getId($id);
         print_r(json_encode($RDV));
     }
 
     public function infoByRef($rdv)
     {
-        $RDV = $this->hikeModel->RDVInfoByRef($rdv);
+        $RDV = $this->intrestModel->RDVInfoByRef($rdv);
         print_r(json_encode($RDV));
     }
 
@@ -91,11 +88,11 @@ class hike extends Controller
                 if ($infos->role === "user") {
                     $id = $infos->id;
                         $name = $this->uplaodImages($request->image);
-                        $hike = $this->hikeModel->add(json_decode($request->json), $id ,$name);
+                        $intrest = $this->intrestModel->add(json_decode($request->json), $id ,$name);
                     
-                    if ($hike) {
+                    if ($intrest) {
                         print_r(json_encode(array(
-                            "message" => "hike Created with success",
+                            "message" => "intrest Created with success",
                             "data" => $this->data,
                         )));
                     }
@@ -119,7 +116,7 @@ class hike extends Controller
 
     public function delete()
     {
-        $this->hikeModel->delete($this->data);
+        $this->intrestModel->delete($this->data);
         print_r(json_encode(array(
             'message' => "the reservation canceled",
         )));
@@ -140,10 +137,10 @@ class hike extends Controller
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role == "user") {
                     $name = $this->uplaodImages($request->image);
-                    $hike = $this->hikeModel->edit(json_decode($request->json), $id ,$name);
-                    if ($hike) {
+                    $intrest = $this->intrestModel->edit(json_decode($request->json), $id ,$name);
+                    if ($intrest) {
                         print_r(json_encode(array(
-                            "message" => "hike Edited with success",
+                            "message" => "intrest Edited with success",
                         )));
                     }
                 } else {

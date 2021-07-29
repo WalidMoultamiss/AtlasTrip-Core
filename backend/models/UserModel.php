@@ -15,10 +15,22 @@ class UserModel
         return $this->db->all();
     }
 
+    public function getUsersCardProfile()
+    {
+        $this->db->query("SELECT first_name,last_name,image FROM user");
+        return $this->db->all();
+    }
+
     public function getUserByRef($reference)
     {
         $this->db->query("SELECT * FROM user WHERE reference = :reference");
         $this->db->bind(':reference', $reference);
+        return $this->db->single();
+    }
+    public function getMyInfo($id)
+    {
+        $this->db->query("SELECT * FROM user WHERE id = :id");
+        $this->db->bind(':id', $id);
         return $this->db->single();
     }
 
@@ -76,6 +88,41 @@ class UserModel
             die();
         }
         return $this->getUserByEmail($data->email);
+    }
+    public function edit($data, $id , $nameImage)
+    {
+        
+        
+        try {
+            $this->db->query("UPDATE
+                user
+            SET
+                first_name = :first_name,
+                last_name = :last_name,
+                phone = :phone,
+                image = :image,
+                quote = :quote,
+                t_num_1 = :t_num_1,
+                t_num_2 = :t_num_2,
+                t_num_3 = :t_num_3
+
+                WHERE id = :id
+            ");
+            $this->db->bind(':first_name', $data->first_name);
+            $this->db->bind(':last_name', $data->last_name);
+            $this->db->bind(':phone', $data->phone);
+            $this->db->bind(':quote', $data->quote);
+            $this->db->bind(':image', $nameImage);
+            $this->db->bind(':t_num_1', $data->t_num_1);
+            $this->db->bind(':t_num_2', $data->t_num_2);
+            $this->db->bind(':t_num_3', $data->t_num_3);
+            $this->db->bind(':id', $id);
+            $this->db->single();
+        } catch (\PDOExeption $err) {
+            return $err->getMessage();
+            die();
+        }
+        return $this->getMyInfo($id);
     }
 
 
