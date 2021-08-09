@@ -13,6 +13,11 @@ class hikeModel
         $this->db->query("SELECT * FROM  hikes ");
         return $this->db->all();
     }
+    public function getHikesFromDay($id)
+    {
+        $this->db->query("SELECT hikes.* from hikes,day,day_hike WHERE day_hike.day_id = day.id and day_hike.hike_id = hikes.id and day.id = '$id'");
+        return $this->db->all();
+    }
     public function getAllImages()
     {
         $this->db->query("SELECT hikes.image, hikes.id FROM  hikes ");

@@ -77,12 +77,13 @@ class User extends Controller
     public function users()
     {
         $headers = apache_request_headers();
-        $headers = isset($headers['Authorization']) ? explode(' ', $headers['Authorization']) : null;
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
         if ($headers) {
             try {
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role == "user") {
                     $users = $this->userModel->getUsers();
+                    
                         print_r(json_encode(array(
                             "users" => $users,
                         )));

@@ -18,6 +18,11 @@ class hike extends Controller
         $hikes = $this->hikeModel->getAll();
         print_r(json_encode($hikes));
     }
+    public function getHikesFromDay($id)
+    {
+        $hikes = $this->hikeModel->getHikesFromDay($id);
+        print_r(json_encode($hikes));
+    }
 
     public function hikesImage()
     {

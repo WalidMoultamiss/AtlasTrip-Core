@@ -11,7 +11,7 @@ class UserModel
 
     public function getUsers()
     {
-        $this->db->query("SELECT * FROM user");
+        $this->db->query("SELECT id,first_name,last_name,image,quote FROM user");
         return $this->db->all();
     }
 
