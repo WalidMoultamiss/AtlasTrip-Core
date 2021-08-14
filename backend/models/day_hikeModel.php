@@ -13,14 +13,14 @@ class day_hikeModel
         $this->db->query("SELECT * FROM  plan ");
         return $this->db->all();
     }
-    
+
     public function getId($id)
     {
         $this->db->query("SELECT * FROM plan WHERE id = :id");
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
-    
+
     public function planInfoByRef($plan)
     {
         $this->db->query("SELECT * FROM plans WHERE refenrence_id = :plan");
@@ -28,8 +28,6 @@ class day_hikeModel
         return $this->db->single();
     }
 
-    
-    
     public function getplansByDate($date)
     {
         $this->db->query("SELECT * FROM plans WHERE date = :date");
@@ -37,8 +35,7 @@ class day_hikeModel
         return $this->db->single();
     }
 
-
-    public function add($hike_id,$day_id)
+    public function add($hike_id, $day_id)
     {
         try {
             $this->db->query("INSERT INTO
@@ -51,7 +48,7 @@ class day_hikeModel
             $this->db->bind(':day_id', $day_id);
             $this->db->bind(':hike_id', $hike_id);
             $this->db->single();
-        } catch (\PDOExeption $err) {
+        } catch (\PDOExeption$err) {
             return $err->getMessage();
             die();
         }
@@ -64,8 +61,5 @@ class day_hikeModel
         $this->db->bind(':id', $data->id);
         $this->db->execute();
     }
-
-
-
 
 }

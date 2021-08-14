@@ -13,6 +13,11 @@ class planModel
         $this->db->query("SELECT * FROM  plan where status = 'active'");
         return $this->db->all();
     }
+    public function getinfoOfAllPlans()
+    {
+        $this->db->query("SELECT count(*)-1 as users,(SELECT count(*) FROM plan) as plans from user");
+        return $this->db->single();
+    }
     public function getAllExp()
     {
         $this->db->query("SELECT * FROM  plan where status = 'experiences' ORDER BY created_at DESC"  );
@@ -30,7 +35,7 @@ class planModel
     }
     public function getDaysFromPlanUniqueId($id)
     {
-        $this->db->query(" SELECT day.* FROM plan,plan_day,day where plan_day.plan_id = plan.id and plan_day.day_id = day.id and unique_id = '$id'");
+        $this->db->query("SELECT day.*, user.first_name,user.last_name,user.id as user_id FROM plan,plan_day,day,user where plan_day.plan_id = plan.id and plan_day.day_id = day.id and unique_id ='$id' and plan.created_with = user.id");
         return $this->db->all();
     }
     public function getAllExpWithCreator()

@@ -32,6 +32,11 @@ class plan extends Controller
         $plans = $this->planModel->countDay($id);
         print_r(json_encode($plans));
     }
+    public function getinfoOfAllPlans()
+    {
+        $plans = $this->planModel->getinfoOfAllPlans();
+        print_r(json_encode($plans));
+    }
     public function getDaysFromPlan($id)
     {
         $plans = $this->planModel->getDaysFromPlan($id);
@@ -46,7 +51,7 @@ class plan extends Controller
     {
         $days = $this->planModel->getDaysFromPlan($id);
         // die(print_r($days));
-        for ($i=0; $i <count($days) ; $i++) {
+        for ($i = 0; $i < count($days); $i++) {
             $days[$i] = $this->hikeModel->getHikesFromDay($days[$i]->id);
         }
         print_r(json_encode($days));
@@ -69,14 +74,11 @@ class plan extends Controller
         print_r(json_encode($plan));
     }
 
-
     public function infoByRef($rdv)
     {
         $RDV = $this->planModel->RDVInfoByRef($rdv);
         print_r(json_encode($RDV));
     }
-
-
 
     public function add()
     {
@@ -84,53 +86,54 @@ class plan extends Controller
         $headers = apache_request_headers();
         $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
         if ($headers) {
-            $process="";
+            $process = "";
             try {
                 $infos = $this->verifyAuth($headers[1]);
-                $process=$process."> verifying token";
+                $process = $process . "> verifying token";
                 if ($infos->role === "user") {
-                    $process=$process."> verifying role";
+                    $process = $process . "> verifying role";
                     //get id of the creator
                     $id = $infos->id;
-                    $process=$process."> get id user";
+                    $process = $process . "> get id user";
                     //create a plan and return it's id
                     $plan_name = $this->data->plan_name;
-                    function clean($plan_name) {
+                    function clean($plan_name)
+                    {
                         $plan_name = str_replace(' ', '-', $plan_name); // Replaces all spaces with hyphens.
                         return preg_replace('/[^A-Za-z0-9\-]/', '', $plan_name); // Removes special chars.
-                        }
+                    }
                     $plan_name = clean($plan_name);
                     $micro = microtime();
-                    $micro = explode('.',join('',explode(' ',$micro)))[1];
+                    $micro = explode('.', join('', explode(' ', $micro)))[1];
                     $uniqueId = $micro . $id . $plan_name;
-                    $process=$process."> unique_id created ".$uniqueId;
-                    $plan = $this->planModel->add($this->data->plan_name, $id,$uniqueId);
-                    $process=$process."> plan created";
+                    $process = $process . "> unique_id created " . $uniqueId;
+                    $plan = $this->planModel->add($this->data->plan_name, $id, $uniqueId);
+                    $process = $process . "> plan created";
                     //add days for each day in data
-                    for ($i=0; $i < count($this->data->data); $i++) {
+                    for ($i = 0; $i < count($this->data->data); $i++) {
                         //add day with it's number and return it's id
                         $day = $this->dayModel->add($i);
-                        $process=$process."> add day";
+                        $process = $process . "> add day";
                         // now i have the plan and the day lets create the relationship
-                        $relationship = $this->plan_dayModel->add($plan->id,$day->id);
-                        $process=$process."> relationship between day and plan has been created";
+                        $relationship = $this->plan_dayModel->add($plan->id, $day->id);
+                        $process = $process . "> relationship between day and plan has been created";
                         //let's create the relationship between days and hikes
-                        for ($j=0; $j < count($this->data->data[$i]); $j++) {
+                        for ($j = 0; $j < count($this->data->data[$i]); $j++) {
                             $hike = $this->data->data[$i][$j];
-                            for ($k=0; $k < count($this->data->data[$i][$j]); $k++) {
-                                $relationship = $this->day_hikeModel->add($hike[$k],$day->id);
-                                $process=$process."> relationship between day '$day->id' and hike '$hike[$j]' has been created";
+                            for ($k = 0; $k < count($this->data->data[$i][$j]); $k++) {
+                                $relationship = $this->day_hikeModel->add($hike[$k], $day->id);
+                                $process = $process . "> relationship between day '$day->id' and hike '$hike[$j]' has been created";
 
                             }
                         }
                     }
-                    
+
                     if ($plan) {
                         print_r(json_encode(array(
-                            "error"=>false,
+                            "error" => false,
                             "message" => "plan Created with success",
-                            "uniqueId"=>$uniqueId,
-                            "data" => $process
+                            "uniqueId" => $uniqueId,
+                            "data" => $process,
                         )));
                     }
                 } else {
@@ -139,14 +142,14 @@ class plan extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
@@ -155,7 +158,7 @@ class plan extends Controller
     {
         $this->planModel->delete($this->data);
         print_r(json_encode(array(
-            'message' => "the reservation canceled"
+            'message' => "the reservation canceled",
         )));
     }
 
@@ -182,20 +185,20 @@ class plan extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "token is invalid"
+                'error' => "token is invalid",
             )));
         }
     }
 
-
-    public function search(){
+    public function search()
+    {
         $result = $this->userModel->getBySearch($this->data);
         print_r(json_encode($result));
     }

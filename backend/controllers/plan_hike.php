@@ -31,7 +31,6 @@ class plan_hike extends Controller
         print_r(json_encode($RDV));
     }
 
-
     public function infoByRef($rdv)
     {
         $RDV = $this->plan_hike->RDVInfoByRef($rdv);
@@ -47,13 +46,13 @@ class plan_hike extends Controller
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role === "user") {
                     $id = $infos->id;
-                    for ($i=0; $i < count($this->data); $i++) {
+                    for ($i = 0; $i < count($this->data); $i++) {
                         $plan = $this->plan_hike->add($this->data[$i], $id);
                     }
                     if ($plan) {
                         print_r(json_encode(array(
                             "message" => "relationship Created with success",
-                            "data" => $this->data
+                            "data" => $this->data,
                         )));
                     }
                 } else {
@@ -62,14 +61,14 @@ class plan_hike extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
@@ -78,7 +77,7 @@ class plan_hike extends Controller
     {
         $this->plan_hike->delete($this->data);
         print_r(json_encode(array(
-            'message' => "the reservation canceled"
+            'message' => "the reservation canceled",
         )));
     }
 
@@ -105,20 +104,20 @@ class plan_hike extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "token is invalid"
+                'error' => "token is invalid",
             )));
         }
     }
 
-
-    public function search(){
+    public function search()
+    {
         $result = $this->userModel->getBySearch($this->data);
         print_r(json_encode($result));
     }

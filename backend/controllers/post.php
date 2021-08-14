@@ -78,7 +78,6 @@ class post extends Controller
         print_r(json_encode($RDV));
     }
 
-
     public function addLike()
     {
         $headers = apache_request_headers();
@@ -88,22 +87,22 @@ class post extends Controller
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role === "user") {
                     $id = $infos->id;
-                        $likeTest = $this->postModel->getLike($id,$this->data->post_id);
-                        if($likeTest[0]->likes == 0){
-                            $like = $this->postModel->likePost($id,$this->data->post_id);
-                        }else{
-                            $number_of_likes = $this->postModel->likesCounter($this->data->post_id);
-                            print_r(json_encode(array(
-                                "message" => "you already liked this post",
-                                "likes"=> $number_of_likes[0]->likes
-                            )));
-                            die();
-                        }
+                    $likeTest = $this->postModel->getLike($id, $this->data->post_id);
+                    if ($likeTest[0]->likes == 0) {
+                        $like = $this->postModel->likePost($id, $this->data->post_id);
+                    } else {
+                        $number_of_likes = $this->postModel->likesCounter($this->data->post_id);
+                        print_r(json_encode(array(
+                            "message" => "you already liked this post",
+                            "likes" => $number_of_likes[0]->likes,
+                        )));
+                        die();
+                    }
                     if ($like) {
                         $number_of_likes = $this->postModel->likesCounter($this->data->post_id);
                         print_r(json_encode(array(
                             "message" => "you like the post",
-                            "likes"=> $number_of_likes[0]->likes
+                            "likes" => $number_of_likes[0]->likes,
                         )));
                     }
                 } else {
@@ -112,14 +111,14 @@ class post extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
@@ -132,7 +131,7 @@ class post extends Controller
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role === "user") {
                     $id = $infos->id;
-                        $posts = $this->postModel->getAll($id);
+                    $posts = $this->postModel->getAll($id);
                     if ($posts) {
                         print_r(json_encode($posts));
                     }
@@ -142,27 +141,25 @@ class post extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
 
     public function add()
     {
-        
+
         $request = (object) [
             "image" => $_FILES['image'],
             "json" => $_POST['json'],
         ];
-
-        
         $headers = apache_request_headers();
         $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
         // die(var_dump($headers));
@@ -171,12 +168,11 @@ class post extends Controller
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role === "user") {
                     $id = $infos->id;
-                        $name = $this->uplaodImages($request->image);
-                        $post = $this->postModel->add(json_decode($request->json), $id,$this->uniqidReal() ,$name);
+                    $name = $this->uplaodImages($request->image);
+                    $post = $this->postModel->add(json_decode($request->json), $id, $this->uniqidReal(), $name);
                     if ($post) {
                         print_r(json_encode(array(
                             "message" => "post Created with success",
-                            "data" => $this->data,
                         )));
                     }
                 } else {
@@ -212,7 +208,6 @@ class post extends Controller
             "json" => $_POST['json'],
         ];
 
-
         $headers = apache_request_headers();
         $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
         if ($headers) {
@@ -220,7 +215,7 @@ class post extends Controller
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role == "user") {
                     $name = $this->uplaodImages($request->image);
-                    $post = $this->postModel->edit(json_decode($request->json), $id ,$name);
+                    $post = $this->postModel->edit(json_decode($request->json), $id, $name);
                     if ($post) {
                         print_r(json_encode(array(
                             "message" => "post Edited with success",
@@ -235,12 +230,12 @@ class post extends Controller
             } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
-                    
+
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "token is invalid "
+                'error' => "token is invalid ",
             )));
         }
     }

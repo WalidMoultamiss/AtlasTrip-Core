@@ -18,7 +18,6 @@ class intrest_user extends Controller
         $plans = $this->intrest_user->getAll();
         print_r(json_encode($plans));
     }
-    
 
     public function info($id)
     {
@@ -31,7 +30,6 @@ class intrest_user extends Controller
         $RDV = $this->intrest_user->getId($this->data->id);
         print_r(json_encode($RDV));
     }
-
 
     public function infoByRef($rdv)
     {
@@ -49,13 +47,13 @@ class intrest_user extends Controller
                 if ($infos->role === "user") {
                     $id = $infos->id;
                     $this->intrest_user->delete($id);
-                    for ($i=0; $i < count($this->data); $i++) {
+                    for ($i = 0; $i < count($this->data); $i++) {
                         $plan = $this->intrest_user->add($this->data[$i]->id, $id);
                     }
                     if ($plan) {
                         print_r(json_encode(array(
                             "message" => "relationship Created with success",
-                            "mine" => $this->intrest_user->getMine($id)
+                            "mine" => $this->intrest_user->getMine($id),
                         )));
                     }
                 } else {
@@ -64,14 +62,14 @@ class intrest_user extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
@@ -96,14 +94,14 @@ class intrest_user extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
@@ -128,14 +126,14 @@ class intrest_user extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "Token is invalid",'token'=> $headers
+                'error' => "Token is invalid", 'token' => $headers,
             )));
         }
     }
@@ -144,7 +142,7 @@ class intrest_user extends Controller
     {
         $this->intrest_user->delete($this->data);
         print_r(json_encode(array(
-            'message' => "the reservation canceled"
+            'message' => "the reservation canceled",
         )));
     }
 
@@ -171,20 +169,20 @@ class intrest_user extends Controller
                     )));
                     die();
                 }
-            } catch (\Throwable $th) {
+            } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "token is invalid"
+                'error' => "token is invalid",
             )));
         }
     }
 
-
-    public function search(){
+    public function search()
+    {
         $result = $this->userModel->getBySearch($this->data);
         print_r(json_encode($result));
     }

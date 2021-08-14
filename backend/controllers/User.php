@@ -52,7 +52,7 @@ class User extends Controller
             try {
                 $infos = $this->verifyAuth($headers[1]);
                 if ($infos->role == "user") {
-                    $users = $this->userModel->getUsersCardProfile();
+                    $users = $this->userModel->getUsersCardProfile($infos->id);
                         print_r(json_encode(array(
                             "users" => $users,
                         )));
@@ -114,8 +114,6 @@ class User extends Controller
                 if ($infos->role == "user") {
 
                     $user = $this->userModel->getMyInfo($infos->id);
-                    unset($user->password);
-                    unset($user->role);
                         print_r(json_encode(array(
                             "user" => $user,
                         )));
@@ -125,6 +123,96 @@ class User extends Controller
                     )));
                     die();
                 }
+            } catch (\Throwable $th) {
+                print_r(json_encode(array(
+                    'error' => "Authentication error  ",
+                )));
+            }
+        } else {
+            print_r(json_encode(array(
+                'error' => "token is invalid",
+            )));
+        }
+    }
+    public function followUser()
+    {
+        $headers = apache_request_headers();
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
+        if ($headers) {
+            try {
+                $infos = $this->verifyAuth($headers[1]);
+                if ($infos->role == "user") {
+                    if($infos->id != $this->data->follow){
+                    $check = $this->userModel->checkFollowUser($infos->id,$this->data->follow);
+                    if($check == 0){
+                        $user = $this->userModel->followUser($infos->id,$this->data->follow);
+                        print_r(json_encode(array(
+                            "error" => 'false',"message" => "you followed this user"
+                        )));
+                    }else{
+                        print_r(json_encode(array(
+                            "error" => 'true',
+                            "message" => "you already followed this user"
+                        )));
+                        die();
+                    }}else{
+                        print_r(json_encode(array(
+                            "error" => 'true',"message" => "are you trying to follow yourself ??  never heared before hahaha, try more..."
+                        )));
+                        die();
+                        }
+                } else {
+                    print_r(json_encode(array(
+                        'error' => "You Don't Have permission to make this action",
+                    )));
+                    die();
+                }
+            
+            } catch (\Throwable $th) {
+                print_r(json_encode(array(
+                    'error' => "Authentication error  ",
+                )));
+            }
+        } else {
+            print_r(json_encode(array(
+                'error' => "token is invalid",
+            )));
+        }
+    }
+    public function unFollowUser()
+    {
+        $headers = apache_request_headers();
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
+        if ($headers) {
+            try {
+                $infos = $this->verifyAuth($headers[1]);
+                if ($infos->role == "user") {
+                    if($infos->id != $this->data->follow){
+                    $check = $this->userModel->checkFollowUser($infos->id,$this->data->follow);
+                    if($check == 1){
+                        $user = $this->userModel->unFollowUser($infos->id,$this->data->follow);
+                        print_r(json_encode(array(
+                            "error" => 'false',"message" => "you unfollowed this user"
+                        )));
+                    }else{
+                        print_r(json_encode(array(
+                            "error" => 'true',
+                            "message" => "you already unfollowed this user"
+                        )));
+                        die();
+                    }}else{
+                        print_r(json_encode(array(
+                            "error" => 'true',"message" => "are you trying to unfollow yourself ??  never heared before hahaha,but try more..."
+                        )));
+                        die();
+                        }
+                } else {
+                    print_r(json_encode(array(
+                        'error' => "You Don't Have permission to make this action",
+                    )));
+                    die();
+                }
+            
             } catch (\Throwable $th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error  ",
@@ -237,25 +325,32 @@ class User extends Controller
     public function delete($id){
         $this->userModel->delete($id);
     }
+   
 
     public function Token(){
         $headers = apache_request_headers();
-        $headers = isset($headers['Authorization']) ? explode(' ', $headers['Authorization']) : null;
+        $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
 
         if ($headers) {
             try {
 
             $this->verifyAuth($headers[1]);
-            print_r(json_encode(array('message' => 'Authorized' )));
+            print_r(json_encode(array(
+                "error" => "false",
+                'message' => 'Authorized' 
+            )));
 
             } catch (\Throwable $th) {
                 print_r(json_encode(array(
-                    "error" => "unauthorized",
+                    "error" => "true",
+                    "messag" => "unauthorized"
+
                 )));
             }
         } else {
             print_r(json_encode(array(
-                "error" => "unauthorized",
+                "error" => "true",
+                "messag" => "unauthorized"
             )));
         }
     }

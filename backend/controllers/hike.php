@@ -18,6 +18,11 @@ class hike extends Controller
         $hikes = $this->hikeModel->getAll();
         print_r(json_encode($hikes));
     }
+    public function ninehikes()
+    {
+        $hikes = $this->hikeModel->ninehikes();
+        print_r(json_encode($hikes));
+    }
     public function getHikesFromDay($id)
     {
         $hikes = $this->hikeModel->getHikesFromDay($id);
@@ -80,24 +85,23 @@ class hike extends Controller
 
     public function add()
     {
-        
+
         $request = (object) [
             "image" => $_FILES['image'],
             "json" => $_POST['json'],
         ];
 
-        
         $headers = apache_request_headers();
         $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
         // die(var_dump($headers));
         if ($headers) {
             try {
                 $infos = $this->verifyAuth($headers[1]);
-                if ($infos->role === "user") {
+                if ($infos->role === "admin") {
                     $id = $infos->id;
-                        $name = $this->uplaodImages($request->image);
-                        $hike = $this->hikeModel->add(json_decode($request->json), $id ,$name);
-                    
+                    $name = $this->uplaodImages($request->image);
+                    $hike = $this->hikeModel->add(json_decode($request->json), $id, $name);
+
                     if ($hike) {
                         print_r(json_encode(array(
                             "message" => "hike Created with success",
@@ -137,15 +141,14 @@ class hike extends Controller
             "json" => $_POST['json'],
         ];
 
-
         $headers = apache_request_headers();
         $headers = isset($headers['authorization']) ? explode(' ', $headers['authorization']) : null;
         if ($headers) {
             try {
                 $infos = $this->verifyAuth($headers[1]);
-                if ($infos->role == "user") {
+                if ($infos->role == "admin") {
                     $name = $this->uplaodImages($request->image);
-                    $hike = $this->hikeModel->edit(json_decode($request->json), $id ,$name);
+                    $hike = $this->hikeModel->edit(json_decode($request->json), $id, $name);
                     if ($hike) {
                         print_r(json_encode(array(
                             "message" => "hike Edited with success",
@@ -160,12 +163,12 @@ class hike extends Controller
             } catch (\Throwable$th) {
                 print_r(json_encode(array(
                     'error' => "Authentication error",
-                    
+
                 )));
             }
         } else {
             print_r(json_encode(array(
-                'error' => "token is invalid "
+                'error' => "token is invalid ",
             )));
         }
     }
